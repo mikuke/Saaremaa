@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -25,6 +26,7 @@ public class EventListFragment extends Fragment {
     public List<Event> events;
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
 
     public EventListFragment() {
         // Required empty public constructor
@@ -37,6 +39,7 @@ public class EventListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.main_recyclerview);
+        progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
 
         ParsePageTask task = new ParsePageTask();
         task.execute();
@@ -66,6 +69,12 @@ public class EventListFragment extends Fragment {
     }
 
     private class ParsePageTask extends AsyncTask<Void, List<Event>, List<Event>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         private List<Event> eventList = new ArrayList<>();
 
@@ -97,6 +106,7 @@ public class EventListFragment extends Fragment {
 
         protected void onPostExecute(List<Event> eventList) {
             events = eventList;
+            progressBar.setVisibility(View.INVISIBLE);
             setupRecycleView();
         }
     }
