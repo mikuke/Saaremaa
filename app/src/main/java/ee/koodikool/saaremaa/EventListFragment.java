@@ -1,10 +1,11 @@
 package ee.koodikool.saaremaa;
 
-
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,7 +48,6 @@ public class EventListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
     }
 
     private void setupRecycleView() {
@@ -55,6 +55,13 @@ public class EventListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         EventAdapter adapter = new EventAdapter(events, getActivity());
+        adapter.setOnClickListener(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                String detailsLink = events.get(position).detailsLink;
+                openDetailsFragment(detailsLink);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -71,7 +78,7 @@ public class EventListFragment extends Fragment {
             }
             Elements events = doc != null ? doc.select("div#yritus") : null;
 
-            if(events == null) return eventList;
+            if (events == null) return eventList;
             for (int i = 0; i < events.size(); i++) {
                 Element event = events.get(i);
 
@@ -82,7 +89,7 @@ public class EventListFragment extends Fragment {
                 String location = event.getElementById("asukoht").text();
                 String category = event.getElementById("kategooria").text().replace("| Kategooria: ", "");
 
-                eventList.add(new Event(day, date, heading, location, category));
+                eventList.add(new Event(day, date, heading, location, category, detailsLink));
             }
             return eventList;
         }
@@ -92,6 +99,12 @@ public class EventListFragment extends Fragment {
             events = eventList;
             setupRecycleView();
         }
+    }
 
+    public void openDetailsFragment(String link) {
+        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        EventDetailsFragment fragment = EventDetailsFragment.newInstance(link);
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
     }
 }

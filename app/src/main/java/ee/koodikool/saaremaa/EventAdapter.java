@@ -1,6 +1,7 @@
 package ee.koodikool.saaremaa;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +18,22 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     List<Event> eventList;
     Context context;
 
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener{
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnClickListener(OnItemClickListener listener) {
+        this.listener = (OnItemClickListener) listener;
+    }
+
     public EventAdapter(List<Event> eventList, Context context) {
         this.eventList = eventList;
         this.context = context;
     }
+
+
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View card = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_layout, parent, false);
@@ -42,7 +55,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         return eventList.size();
     }
 
-    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class EventViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView day;
         TextView date;
@@ -50,7 +63,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         TextView location;
         TextView category;
 
-        public EventViewHolder(View itemView) {
+        public EventViewHolder(final View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.mainCardView);
             day = (TextView) itemView.findViewById(R.id.dayName);
@@ -59,18 +72,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             location = (TextView) itemView.findViewById(R.id.location);
             category = (TextView) itemView.findViewById(R.id.category);
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(itemView, position);
+                        }
+                    }
+                }
+            });
 
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
-                Event event = eventList.get(position);
-                //Todo: Call method from mainActivity to open detailed view;
-                Toast.makeText(context, "Event clicked: " + event.heading, Toast.LENGTH_SHORT).show();
-            }
         }
     }
 }

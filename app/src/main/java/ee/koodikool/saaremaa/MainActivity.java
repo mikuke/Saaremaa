@@ -1,6 +1,5 @@
 package ee.koodikool.saaremaa;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -20,5 +19,4 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.add(R.id.fragmentContainer, eventListFragment).commit();
     }
-
 }
