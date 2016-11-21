@@ -2,49 +2,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="ee.koodikool.saaremaa.EventDetailsFragment">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/details_heading"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"/>
+            android:layout_margin="2dp">
 
-        <TextView
-            android:id="@+id/details_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
 
-        <TextView
-            android:id="@+id/details_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/details_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Heading"
+                    android:textColor="@color/colorPrimary"
+                    android:textAlignment="center"
+                    android:textSize="27sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:id="@+id/details_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/colorAccent"/>
 
-        <TextView
-            android:id="@+id/details_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/details_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/details_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="ESMASPÄEV"
+                        android:textAlignment="gravity"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/details_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="gravity"
+                        android:text="21.11"
+                        android:textSize="17sp" />
 
-    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/details_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="gravity"
+                        android:text="Kino" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:text=" - "/>
+
+                    <TextView
+                        android:id="@+id/details_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="gravity"
+                        android:text="Kuressaare" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="15dp"
+                    android:background="@color/colorAccent"/>
+
+                <TextView
+                    android:id="@+id/details_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Loremipsumblablabla" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/detailsProgressbar"

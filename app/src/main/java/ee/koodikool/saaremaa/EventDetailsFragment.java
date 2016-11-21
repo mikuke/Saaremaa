@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -84,9 +85,11 @@ public class EventDetailsFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             org.jsoup.nodes.Document doc = null;
             try {
-                doc = Jsoup.connect(detailsLink).userAgent(browserTag).get();
+                doc = Jsoup.connect(detailsLink).userAgent(browserTag).timeout(10000).get();
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getActivity(), "Andmete laadimine ebaõnnestus, probleem internetiga",
+                        Toast.LENGTH_LONG).show();
             }
             Element eventElement = doc != null ? doc.getElementById("sisu-single") : null;
 
@@ -94,7 +97,8 @@ public class EventDetailsFragment extends Fragment {
 
             Elements paragraphs = eventElement.select("p");
             for(Element e : paragraphs) {
-                descriptionText += e.text() + "\n \n";
+                descriptionText += e.text();
+                if(!(paragraphs.last() == e)) descriptionText += "\n \n";
             }
             return null;
         }

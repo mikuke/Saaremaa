@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -83,9 +84,11 @@ public class EventListFragment extends Fragment {
         protected List<Event> doInBackground(Void... params) {
             org.jsoup.nodes.Document doc = null;
             try {
-                doc = Jsoup.connect("http://www.saaremaasuvi.ee/").userAgent(browserTag).get();
+                doc = Jsoup.connect("http://www.saaremaasuvi.ee/").userAgent(browserTag).timeout(10000).get();
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getActivity(), "Andmete laadimine ebaõnnestus, probleem internetiga",
+                        Toast.LENGTH_LONG).show();
             }
             Elements events = doc != null ? doc.select("div#yritus") : null;
 
