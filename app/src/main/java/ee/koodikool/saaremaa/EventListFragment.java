@@ -1,11 +1,12 @@
 package ee.koodikool.saaremaa;
 
-import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
-import android.app.FragmentManager;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +27,21 @@ import java.util.List;
 public class EventListFragment extends Fragment {
 
     public List<Event> events;
+    private static String TAG_LINK = "TAG_LINK";
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
     public EventListFragment() {
         // Required empty public constructor
+    }
+
+    public static EventListFragment newInstance(String link) {
+        EventListFragment fragment = new EventListFragment();
+        Bundle args = new Bundle();
+        args.putString(TAG_LINK, link);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -83,11 +93,10 @@ public class EventListFragment extends Fragment {
         protected List<Event> doInBackground(Void... params) {
             org.jsoup.nodes.Document doc = null;
             try {
-                doc = Jsoup.connect("http://www.saaremaasuvi.ee/").userAgent(browserTag).timeout(10000).get();
+                doc = Jsoup.connect(getArguments().getString(TAG_LINK)).userAgent(browserTag)
+                        .timeout(10000).get();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getActivity(), "Andmete laadimine ebaõnnestus, probleem internetiga",
-                        Toast.LENGTH_LONG).show();
             }
             Elements events = doc != null ? doc.select("div#yritus") : null;
 
@@ -119,6 +128,6 @@ public class EventListFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
                 event.heading, event.location, event.category, event.detailsLink);
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.fragemntContainer, fragment).addToBackStack(null).commit();
     }
 }

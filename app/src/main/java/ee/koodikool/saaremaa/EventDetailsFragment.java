@@ -1,8 +1,8 @@
 package ee.koodikool.saaremaa;
 
-import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -56,15 +56,18 @@ public class EventDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_details, container, false);
+        getActivity().findViewById(R.id.tabs).setVisibility(View.GONE);
         progressBar = (ProgressBar) view.findViewById(R.id.detailsProgressbar);
         descriptionTextView = (TextView) view.findViewById(R.id.details_description);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        final ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getFragmentManager().popBackStack();
+                actionBar.setDisplayHomeAsUpEnabled(false);
+                getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
             }
         });
 

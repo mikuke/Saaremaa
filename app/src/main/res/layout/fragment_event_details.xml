@@ -1,11 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     android:padding="10dp"
     tools:context="ee.koodikool.saaremaa.EventDetailsFragment">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,31 +20,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/details_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:text="Heading"
-                    android:textColor="@color/colorPrimary"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="27sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center_horizontal" />
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="15dp"
-                    android:background="@color/colorAccent"/>
+                    android:background="@color/colorAccent" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_horizontal">
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/details_day"
@@ -59,8 +60,8 @@
                         android:id="@+id/details_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="gravity"
                         android:text="21.11"
+                        android:textAlignment="gravity"
                         android:textSize="17sp" />
 
                 </LinearLayout>
@@ -75,22 +76,22 @@
                         android:id="@+id/details_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="gravity"
-                        android:text="Kino" />
+                        android:text="Kino"
+                        android:textAlignment="gravity" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:text=" - "/>
+                        android:text=" - " />
 
                     <TextView
                         android:id="@+id/details_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAlignment="gravity"
-                        android:text="Kuressaare" />
+                        android:text="Kuressaare"
+                        android:textAlignment="gravity" />
 
                 </LinearLayout>
 
@@ -98,25 +99,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="15dp"
-                    android:background="@color/colorAccent"/>
+                    android:background="@color/colorAccent" />
 
                 <TextView
                     android:id="@+id/details_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:text="Loremipsumblablabla" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-    </ScrollView>
+        <ProgressBar
+            android:id="@+id/detailsProgressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/detailsProgressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-</FrameLayout>
+</ScrollView>
