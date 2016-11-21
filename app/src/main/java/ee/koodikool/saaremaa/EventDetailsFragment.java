@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -123,6 +124,8 @@ public class EventDetailsFragment extends Fragment {
         String location = args.getString(KEY_EVENT_LOCATION);
         String category = args.getString(KEY_EVENT_CATEGORY);
 
+        CardView card = (CardView) view.findViewById(R.id.detailsCard);
+
         TextView headingView = (TextView) view.findViewById(R.id.details_heading);
         TextView dayView = (TextView) view.findViewById(R.id.details_day);
         TextView dateView = (TextView) view.findViewById(R.id.details_date);
@@ -134,6 +137,8 @@ public class EventDetailsFragment extends Fragment {
         headingView.setText(heading);
         locationView.setText(location);
         categoryView.setText(category);
+
+        card.setVisibility(View.VISIBLE);
     }
 
 }
