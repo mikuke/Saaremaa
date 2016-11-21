@@ -34,7 +34,6 @@ public class EventListFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class EventListFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        ParseListPageTask task = new ParseListPageTask();
-        task.execute();
+        if(events == null) new ParseListPageTask().execute();
+        else setupRecycleView();
 
         return view;
     }
@@ -57,6 +56,7 @@ public class EventListFragment extends Fragment {
     }
 
     private void setupRecycleView() {
+        progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -64,7 +64,6 @@ public class EventListFragment extends Fragment {
         adapter.setOnClickListener(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                String detailsLink = events.get(position).detailsLink;
                 openDetailsFragment(events.get(position));
             }
         });
@@ -111,7 +110,6 @@ public class EventListFragment extends Fragment {
 
         protected void onPostExecute(List<Event> eventList) {
             events = eventList;
-            progressBar.setVisibility(View.INVISIBLE);
             setupRecycleView();
         }
     }
