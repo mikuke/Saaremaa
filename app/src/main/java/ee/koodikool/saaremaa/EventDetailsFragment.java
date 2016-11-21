@@ -3,6 +3,9 @@ package ee.koodikool.saaremaa;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +56,15 @@ public class EventDetailsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_details, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.detailsProgressbar);
         descriptionTextView = (TextView) view.findViewById(R.id.details_description);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
 
         detailsLink = getArguments().getString(KEY_EVENT_LINK);
         ParseDetailsPageTask task = new ParseDetailsPageTask();

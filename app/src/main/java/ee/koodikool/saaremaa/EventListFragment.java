@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ public class EventListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.main_recyclerview);
         progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         ParseListPageTask task = new ParseListPageTask();
         task.execute();
