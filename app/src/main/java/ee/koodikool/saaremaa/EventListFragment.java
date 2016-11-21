@@ -41,7 +41,7 @@ public class EventListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.main_recyclerview);
         progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
 
-        ParsePageTask task = new ParsePageTask();
+        ParseListPageTask task = new ParseListPageTask();
         task.execute();
 
         return view;
@@ -62,13 +62,13 @@ public class EventListFragment extends Fragment {
             @Override
             public void onItemClick(View itemView, int position) {
                 String detailsLink = events.get(position).detailsLink;
-                openDetailsFragment(detailsLink);
+                openDetailsFragment(events.get(position));
             }
         });
         recyclerView.setAdapter(adapter);
     }
 
-    private class ParsePageTask extends AsyncTask<Void, List<Event>, List<Event>> {
+    private class ParseListPageTask extends AsyncTask<Void, List<Event>, List<Event>> {
 
         @Override
         protected void onPreExecute() {
@@ -111,10 +111,11 @@ public class EventListFragment extends Fragment {
         }
     }
 
-    public void openDetailsFragment(String link) {
+    public void openDetailsFragment(Event event) {
         FragmentManager fragmentManager = this.getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        EventDetailsFragment fragment = EventDetailsFragment.newInstance(link);
+        EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
+                event.heading, event.location, event.category, event.detailsLink);
         fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
     }
 }
