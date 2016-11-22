@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -53,7 +52,7 @@ public class EventListFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        if(events == null) new ParseListPageTask().execute();
+        if (events == null) new ParseListPageTask().execute();
         else setupRecycleView();
 
         return view;
@@ -128,6 +127,6 @@ public class EventListFragment extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
                 event.heading, event.location, event.category, event.detailsLink);
-        fragmentTransaction.replace(R.id.fragemntContainer, fragment).addToBackStack(null).commit();
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
     }
 }
