@@ -1,6 +1,5 @@
 package ee.koodikool.saaremaa;
 
-
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,7 @@ public class EventPagesFragment extends Fragment {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private EventsPagerAdapter adapter;
 
     public EventPagesFragment() {
         // Required empty public constructor
@@ -35,7 +35,7 @@ public class EventPagesFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        EventsPagerAdapter adapter = new EventsPagerAdapter(getActivity().getSupportFragmentManager());
+        if (adapter == null) adapter = new EventsPagerAdapter(getActivity().getSupportFragmentManager());
 
         adapter.addFragment("http://www.saaremaasuvi.ee", "KÖIK");
         adapter.addFragment("http://www.saaremaasuvi.ee/kategooria/festival/", "FESTIVAL");
@@ -58,5 +58,4 @@ public class EventPagesFragment extends Fragment {
 
         viewPager.setAdapter(adapter);
     }
-
 }

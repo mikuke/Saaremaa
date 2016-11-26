@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/events"
+        android:title="Sündmused"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_event_white_24dp"/>
+    <item
+        android:id="@+id/nightclubs"
+        android:title="Ööklubid"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_local_bar_white_24dp"/>
+    <item
+        android:id="@+id/restaurants"
+        android:title="Söögikohad"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_local_dining_white_24dp"/>
+    <item
+        android:id="@+id/accomodation"
+        android:title="Majutus"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_local_hotel_white_24dp"/>
+</menu>

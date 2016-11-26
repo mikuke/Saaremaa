@@ -123,7 +123,7 @@ public class EventListFragment extends Fragment {
     }
 
     public void openDetailsFragment(Event event) {
-        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
                 event.heading, event.location, event.category, event.detailsLink);
