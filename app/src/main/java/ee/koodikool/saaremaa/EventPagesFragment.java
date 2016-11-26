@@ -35,7 +35,8 @@ public class EventPagesFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        if (adapter == null) adapter = new EventsPagerAdapter(getActivity().getSupportFragmentManager());
+        if (adapter == null)
+            adapter = new EventsPagerAdapter(getActivity().getSupportFragmentManager());
 
         adapter.addFragment("http://www.saaremaasuvi.ee", "KÖIK");
         adapter.addFragment("http://www.saaremaasuvi.ee/kategooria/festival/", "FESTIVAL");

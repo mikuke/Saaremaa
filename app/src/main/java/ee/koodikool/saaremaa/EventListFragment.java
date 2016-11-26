@@ -123,10 +123,11 @@ public class EventListFragment extends Fragment {
     }
 
     public void openDetailsFragment(Event event) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
                 event.heading, event.location, event.category, event.detailsLink);
         fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
+        ((MainActivity)getActivity()).currentDetailsFragment = fragment;
     }
 }

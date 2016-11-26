@@ -31,7 +31,7 @@ public class EventsPagerAdapter extends FragmentStatePagerAdapter {
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
     }
-
+    
     @Override
     public CharSequence getPageTitle(int position) {
         return fragmentTitleList.get(position);

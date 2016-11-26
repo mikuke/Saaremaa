@@ -3,6 +3,7 @@ package ee.koodikool.saaremaa;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -65,9 +66,7 @@ public class EventDetailsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getFragmentManager().popBackStack();
-                actionBar.setDisplayHomeAsUpEnabled(false);
-                getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+                navigateBack(actionBar);
             }
         });
 
@@ -142,6 +141,14 @@ public class EventDetailsFragment extends Fragment {
         categoryView.setText(category);
 
         card.setVisibility(View.VISIBLE);
+    }
+
+    public void navigateBack(ActionBar actionBar){
+        FragmentManager fragmentManager = getFragmentManager();
+        if(fragmentManager != null && fragmentManager.getBackStackEntryCount() != 0)
+            fragmentManager.popBackStack();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
     }
 
 }
