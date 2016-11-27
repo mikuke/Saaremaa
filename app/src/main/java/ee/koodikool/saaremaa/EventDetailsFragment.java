@@ -93,8 +93,6 @@ public class EventDetailsFragment extends Fragment {
                 doc = Jsoup.connect(detailsLink).userAgent(browserTag).timeout(10000).get();
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(getActivity(), "Andmete laadimine ebaõnnestus, probleem internetiga",
-                        Toast.LENGTH_LONG).show();
             }
             Element eventElement = doc != null ? doc.getElementById("sisu-single") : null;
 

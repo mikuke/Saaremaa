@@ -77,6 +77,10 @@ public class EventListFragment extends Fragment {
 
     private void setupRecycleView() {
         progressBar.setVisibility(View.INVISIBLE);
+        if(events.size() == 0) {
+            getView().findViewById(R.id.events_missing).setVisibility(View.VISIBLE);
+            return;
+        }
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
