@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 switch (item.getItemId()) {
                     case R.id.events:
-                        if(currentDetailsFragment != null) currentDetailsFragment.navigateBack();
-                        else { openFragment(new EventPagesFragment()); }
+                        openFragment(new EventPagesFragment());
                         break;
                     case R.id.accomodation:
                         openFragment(new HotelsFragment());
                         break;
                     case R.id.nightclubs:
-                        openFragment(new NightclubsFragment());
+                        openFragment(EventListFragment
+                                .newInstance("http://saaremaasuvi.ee/kategooria/ooklubi/", false));
                         break;
                     case R.id.restaurants:
                         openFragment(new RestaurantsFragment());

@@ -29,6 +29,7 @@ public class EventDetailsFragment extends Fragment {
     private static String KEY_EVENT_LOCATION = "KEY_EVENT_LOCATION";
     private static String KEY_EVENT_CATEGORY = "KEY_EVENT_CATEGORY";
     private static String KEY_EVENT_LINK = "KEY_EVENT_LINK";
+    private static String KEY_USING_TABS = "KEY_USING_TABS";
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
     private String detailsLink;
     private ProgressBar progressBar;
@@ -40,7 +41,7 @@ public class EventDetailsFragment extends Fragment {
     }
 
     public static EventDetailsFragment newInstance(String day, String date, String heading, String location,
-                                                   String category, String eventLink) {
+                                                   String category, String eventLink, boolean usingTabs) {
         EventDetailsFragment fragment = new EventDetailsFragment();
         Bundle arguments = new Bundle();
         arguments.putString(KEY_EVENT_DAY, day);
@@ -49,6 +50,7 @@ public class EventDetailsFragment extends Fragment {
         arguments.putString(KEY_EVENT_LOCATION, location);
         arguments.putString(KEY_EVENT_CATEGORY, category);
         arguments.putString(KEY_EVENT_LINK, eventLink);
+        arguments.putBoolean(KEY_USING_TABS, usingTabs);
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -148,7 +150,7 @@ public class EventDetailsFragment extends Fragment {
         if(fragmentManager != null && fragmentManager.getBackStackEntryCount() != 0)
             fragmentManager.popBackStack();
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
+        if(getArguments().getBoolean(KEY_USING_TABS)) getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
     }
 
 }

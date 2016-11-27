@@ -27,6 +27,7 @@ public class EventListFragment extends Fragment {
 
     public List<Event> events;
     private static String TAG_LINK = "TAG_LINK";
+    private static String TAG_TOOLBAR = "TAG_TOOLBAR";
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -35,10 +36,20 @@ public class EventListFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public static EventListFragment newInstance(String link, boolean usingToolbar) {
+        EventListFragment fragment = new EventListFragment();
+        Bundle args = new Bundle();
+        args.putString(TAG_LINK, link);
+        args.putBoolean(TAG_TOOLBAR, usingToolbar);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public static EventListFragment newInstance(String link) {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
         args.putString(TAG_LINK, link);
+        args.putBoolean(TAG_TOOLBAR, true);
         fragment.setArguments(args);
         return fragment;
     }
@@ -126,7 +137,7 @@ public class EventListFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         EventDetailsFragment fragment = EventDetailsFragment.newInstance(event.day, event.date,
-                event.heading, event.location, event.category, event.detailsLink);
+                event.heading, event.location, event.category, event.detailsLink, getArguments().getBoolean(TAG_TOOLBAR));
         fragmentTransaction.replace(R.id.fragmentContainer, fragment).addToBackStack(null).commit();
         ((MainActivity)getActivity()).currentDetailsFragment = fragment;
     }
