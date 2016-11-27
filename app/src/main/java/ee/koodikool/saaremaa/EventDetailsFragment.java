@@ -66,7 +66,7 @@ public class EventDetailsFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navigateBack(actionBar);
+                navigateBack();
             }
         });
 
@@ -143,11 +143,11 @@ public class EventDetailsFragment extends Fragment {
         card.setVisibility(View.VISIBLE);
     }
 
-    public void navigateBack(ActionBar actionBar){
+    public void navigateBack(){
         FragmentManager fragmentManager = getFragmentManager();
         if(fragmentManager != null && fragmentManager.getBackStackEntryCount() != 0)
             fragmentManager.popBackStack();
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getActivity().findViewById(R.id.tabs).setVisibility(View.VISIBLE);
     }
 
