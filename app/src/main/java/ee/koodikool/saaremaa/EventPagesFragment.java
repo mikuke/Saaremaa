@@ -25,7 +25,7 @@ public class EventPagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_event_pages, container, false);
 
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+      //  setupViewPager(viewPager);
 
         tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -58,5 +58,12 @@ public class EventPagesFragment extends Fragment {
         adapter.addFragment("http://www.saaremaasuvi.ee/kategooria/teater/", "TEATER");
 
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewPager == null) viewPager = (ViewPager) getView().findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
     }
 }
