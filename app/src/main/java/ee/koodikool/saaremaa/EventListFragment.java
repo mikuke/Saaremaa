@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,16 +79,11 @@ public class EventListFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
     private void setupRecycleView() {
         progressBar.setVisibility(View.INVISIBLE);
+        Log.d("!!!!!!!!!!!!!!", "settingUpRecyclerView, events.size(): " + events.size());
         if(events.size() == 0) {
-            getActivity().findViewById(R.id.events_missing).setVisibility(View.VISIBLE);
+            empty_list_textview.setVisibility(View.VISIBLE);
             return;
         }
         recyclerView.setHasFixedSize(true);
@@ -121,8 +117,12 @@ public class EventListFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Elements events = doc != null ? doc.select("div#yritus") : null;
-
+            Elements events = null;
+            if(doc == null) return eventList;
+            if(getArguments().getString(TAG_LINK) != null &&
+                    getArguments().getString(TAG_LINK).equals("http://www.saaremaasuvi.ee"))
+                events = doc.select("ul#uritused").select("li");
+            else events = doc.select("div#yritus");
             if (events == null) return eventList;
             for (int i = 0; i < events.size(); i++) {
                 Element event = events.get(i);

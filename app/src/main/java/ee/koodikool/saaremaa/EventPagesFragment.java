@@ -28,7 +28,6 @@ public class EventPagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_pages, container, false);
         ButterKnife.bind(this, view.getRootView());
-      //  setupViewPager(viewPager);
 
         ((MainActivity) getActivity()).setupToolbarWithViewPager(viewPager);
 
@@ -65,7 +64,6 @@ public class EventPagesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (viewPager == null) viewPager = (ViewPager) getView().findViewById(R.id.viewpager);
         setupViewPager(viewPager);
     }
 }
