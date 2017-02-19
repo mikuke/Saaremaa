@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EventPagesFragment extends Fragment {
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+
     private EventsPagerAdapter adapter;
 
     public EventPagesFragment() {
@@ -23,12 +27,10 @@ public class EventPagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_pages, container, false);
-
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ButterKnife.bind(this, view.getRootView());
       //  setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        ((MainActivity) getActivity()).setupToolbarWithViewPager(viewPager);
 
         return view;
     }

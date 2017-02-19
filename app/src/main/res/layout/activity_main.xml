@@ -33,7 +33,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/fContainer"
+        android:id="@+id/fragmentContainer"
         android:layout_below="@id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

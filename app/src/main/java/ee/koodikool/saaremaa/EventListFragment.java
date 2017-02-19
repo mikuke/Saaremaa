@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
@@ -23,14 +24,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EventListFragment extends Fragment {
 
     public List<Event> events;
     private static String TAG_LINK = "TAG_LINK";
     private static String TAG_TOOLBAR = "TAG_TOOLBAR";
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
-    private RecyclerView recyclerView;
-    private ProgressBar progressBar;
+
+    @BindView(R.id.main_recyclerview)
+    RecyclerView recyclerView;
+    @BindView(R.id.eventListProgressbar)
+    ProgressBar progressBar;
+    @BindView(R.id.events_missing)
+    LinearLayout empty_list_textview;
 
     public EventListFragment() {
         // Required empty public constructor
@@ -59,9 +68,9 @@ public class EventListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.main_recyclerview);
-        progressBar = (ProgressBar) view.findViewById(R.id.eventListProgressbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ButterKnife.bind(this, view.getRootView());
+
+        ((MainActivity) getActivity()).showBackArrow(false);
 
         if (events == null) new ParseListPageTask().execute();
         else setupRecycleView();
@@ -78,7 +87,7 @@ public class EventListFragment extends Fragment {
     private void setupRecycleView() {
         progressBar.setVisibility(View.INVISIBLE);
         if(events.size() == 0) {
-            getView().findViewById(R.id.events_missing).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.events_missing).setVisibility(View.VISIBLE);
             return;
         }
         recyclerView.setHasFixedSize(true);

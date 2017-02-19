@@ -21,6 +21,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class EventDetailsFragment extends Fragment {
 
     private static String KEY_EVENT_DAY = "KEY_EVENT_DAY";
@@ -32,8 +35,23 @@ public class EventDetailsFragment extends Fragment {
     private static String KEY_USING_TABS = "KEY_USING_TABS";
     public String browserTag = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
     private String detailsLink;
-    private ProgressBar progressBar;
-    private TextView descriptionTextView;
+    @BindView(R.id.detailsProgressbar)
+    ProgressBar progressBar;
+    @BindView(R.id.details_description)
+    TextView descriptionTextView;
+    @BindView(R.id.detailsCard)
+    CardView card;
+    @BindView(R.id.details_heading)
+    TextView headingView;
+    @BindView(R.id.details_day)
+    TextView dayView;
+    @BindView(R.id.details_date)
+    TextView dateView;
+    @BindView(R.id.details_location)
+    TextView locationView;
+    @BindView(R.id.details_category)
+    TextView categoryView;
+
     private String descriptionText = "";
 
     public EventDetailsFragment() {
@@ -59,11 +77,9 @@ public class EventDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_details, container, false);
-        getActivity().findViewById(R.id.tabs).setVisibility(View.GONE);
-        progressBar = (ProgressBar) view.findViewById(R.id.detailsProgressbar);
-        descriptionTextView = (TextView) view.findViewById(R.id.details_description);
-        final ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        ButterKnife.bind(this, view.getRootView());
+        ((MainActivity) getActivity()).showTabs(false);
+        ((MainActivity) getActivity()).showBackArrow(true);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,29 +132,13 @@ public class EventDetailsFragment extends Fragment {
     }
 
     private void setupView() {
-
-        View view = getView();
         Bundle args = getArguments();
 
-        String day = args.getString(KEY_EVENT_DAY);
-        String date = args.getString(KEY_EVENT_DATE);
-        String heading = args.getString(KEY_EVENT_HEADING);
-        String location = args.getString(KEY_EVENT_LOCATION);
-        String category = args.getString(KEY_EVENT_CATEGORY);
-
-        CardView card = (CardView) view.findViewById(R.id.detailsCard);
-
-        TextView headingView = (TextView) view.findViewById(R.id.details_heading);
-        TextView dayView = (TextView) view.findViewById(R.id.details_day);
-        TextView dateView = (TextView) view.findViewById(R.id.details_date);
-        TextView locationView = (TextView) view.findViewById(R.id.details_location);
-        TextView categoryView = (TextView) view.findViewById(R.id.details_category);
-
-        dayView.setText(day);
-        dateView.setText(date);
-        headingView.setText(heading);
-        locationView.setText(location);
-        categoryView.setText(category);
+        dayView.setText(args.getString(KEY_EVENT_DAY));
+        dateView.setText(args.getString(KEY_EVENT_DATE));
+        headingView.setText(args.getString(KEY_EVENT_HEADING));
+        locationView.setText(args.getString(KEY_EVENT_LOCATION));
+        categoryView.setText(args.getString(KEY_EVENT_CATEGORY));
 
         card.setVisibility(View.VISIBLE);
     }
